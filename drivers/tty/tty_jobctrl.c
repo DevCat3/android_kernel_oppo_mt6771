@@ -503,6 +503,10 @@ static int tiocspgrp(struct tty_struct *tty, struct tty_struct *real_tty, pid_t 
 	retval = 0;
 	put_pid(real_tty->pgrp);
 	real_tty->pgrp = get_pid(pgrp);
+	spin_lock_irq(&real_tty->ctrl_lock);
+	put_pid(real_tty->pgrp);
+	real_tty->pgrp = get_pid(pgrp);
+	spin_unlock_irq(&real_tty->ctrl_lock);
 out_unlock:
 	rcu_read_unlock();
 out_unlock_ctrl:
