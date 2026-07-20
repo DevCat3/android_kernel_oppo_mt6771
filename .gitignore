@@ -1,5 +1,8 @@
 # Build dir
 out/
+out
 
 # toolchains
 toolchain/
+toolchain
+build_kernel.sh
